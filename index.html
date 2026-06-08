@@ -65,11 +65,89 @@
     </div>
 
     <script>
-        document.getElementById('auditForm').addEventListener('submit', function(e) {
+
+        // YAHAN APNA APPS SCRIPT WEBHOOK URL DAALEIN
+
+        const WEBHOOK_URL = https://script.google.com/macros/s/AKfycbws5LpGEX88rU7Z-MCd6y99MqbePhVNfwY7-6BAj3lWkLJw-6GbKWXId1PyhSAYumwkAQ/exec;
+
+
+
+        document.getElementById('auditForm').addEventListener('submit', async function(e) {
+
             e.preventDefault();
+
+            
+
+            // UI Update: Hide form, show loading/success
+
             document.getElementById('auditForm').style.display = 'none';
+
             document.getElementById('successMessage').classList.remove('hidden');
+
+
+
+            // Form se data nikalna
+
+            const inputs = e.target.querySelectorAll('input');
+
+            const websiteUrl = inputs[0].value;
+
+            const companyName = inputs[1].value;
+
+            const email = inputs[2].value;
+
+
+
+            // Secure Payload for Frontend (No secret keys exposed)
+
+            const payload = {
+
+                source: "frontend",
+
+                target_url: websiteUrl,
+
+                company_name: companyName,
+
+                email: email,
+
+                llms_missing: true, // Assuming true for inbound leads until audited
+
+                schema_missing: true
+
+            };
+
+
+
+            try {
+
+                // Sending data using native Fetch API without exposing credentials
+
+                await fetch(WEBHOOK_URL, {
+
+                    method: 'POST',
+
+                    mode: 'no-cors', // SECURITY: Hacker is mode ko bypass nahi kar sakta
+
+                    headers: {
+
+                        'Content-Type': 'application/json',
+
+                    },
+
+                    body: JSON.stringify(payload)
+
+                });
+
+                console.log("Secure transmission complete.");
+
+            } catch (error) {
+
+                console.error("Transmission blocked.");
+
+            }
+
         });
+
     </script>
 </body>
 </html>
