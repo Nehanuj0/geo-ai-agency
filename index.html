@@ -1,196 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEO Infrastructure | Google AI Optimization</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body { 
-            background-color: #050505; 
-            color: #ffffff; 
-            font-family: 'Inter', sans-serif; 
-            overflow-x: hidden;
-        }
-        h1, .font-space { font-family: 'Space Grotesk', sans-serif; }
-        
-        /* Extreme Neon & Animations */
-        .neon-text { text-shadow: 0 0 20px rgba(56, 189, 248, 0.8), 0 0 40px rgba(56, 189, 248, 0.4); }
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 30px 60px rgba(0,0,0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-        }
-        
-        /* Animated Background Grid & Orbs */
-        .bg-grid { 
-            background-size: 50px 50px; 
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px); 
-            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-        }
-        
-        @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob { animation: blob 10s infinite alternate ease-in-out; }
-        .animation-delay-2000 { animation-delay: 2s; }
-        
-        /* Custom Input Styling */
-        input:focus ~ .focus-border { width: 100%; transition: 0.4s; }
-        .focus-border { width: 0; transition: 0.4s; }
-    </style>
-</head>
-<body class="antialiased min-h-screen flex flex-col items-center justify-center p-4 relative">
+// ==============================================================================
+// 🔐 ENTERPRISE SECURITY VAULT & ROUTING INFRASTRUCTURE 
+// ==============================================================================
+var SCRAPER_SECRET_KEY = "ZeroCap_Hunter_99X"; // Strict Authentication Key
+var ALLOWED_FRONTEND_URL = "https://[AAPKA-GITHUB-USERNAME].github.io"; // Whitelisted Origin
+
+function doOptions(e) {
+  var headers = {
+    "Access-Control-Allow-Origin": ALLOWED_FRONTEND_URL,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400"
+  };
+  return ContentService.createTextOutput("OK").setMimeType(ContentService.MimeType.TEXT).setHeaders(headers);
+}
+
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var source = data.source || "unknown";
     
-    <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
-    <div class="fixed top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob z-0"></div>
-    <div class="fixed top-1/3 right-1/4 w-[400px] h-[400px] bg-sky-400/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000 z-0"></div>
+    // SECURITY LAYER 1: Encrypted Node Verification
+    if (source === "scraper") {
+      if (data.secret_key !== SCRAPER_SECRET_KEY) {
+        return buildResponse("error", "Access Denied: Invalid Security Token", 401);
+      }
+    } 
+    // SECURITY LAYER 2: Frontend Origin Verification
+    else if (source === "frontend") {
+      if (!data.email || !data.company_name) {
+        return buildResponse("error", "Firewall Block: Malformed Payload", 400);
+      }
+    } else {
+      return buildResponse("error", "Access Denied: Unrecognized Origin", 403);
+    }
 
-    <div class="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-20 max-w-7xl mx-auto right-0">
-        <div class="flex items-center gap-2 font-space font-bold text-xl tracking-tighter">
-            <div class="w-8 h-8 rounded bg-gradient-to-br from-sky-400 to-blue-700 flex items-center justify-center text-white">G</div>
-            GEO<span class="text-gray-500 font-light">INFRA</span>
-        </div>
-        <div class="hidden md:flex items-center gap-4 text-xs font-medium text-gray-400">
-            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Systems Operational</span>
-        </div>
-    </div>
+    // SECURITY LAYER 3: Strict Deduplication Matrix
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var existingData = sheet.getDataRange().getValues();
+    for (var i = 1; i < existingData.length; i++) {
+      if (existingData[i][0] === data.target_url || existingData[i][2] === data.email) {
+        return buildResponse("success", "Duplicate Intercepted. Ignored.", 200);
+      }
+    }
 
-    <div class="max-w-4xl w-full text-center space-y-8 z-10 mt-16">
+    // Secure Data Ingestion
+    var targetUrl = data.target_url || "";
+    var companyName = data.company_name || "";
+    var email = data.email || "";
+    var llmsMissing = data.llms_missing !== undefined ? data.llms_missing : "TRUE";
+    var schemaMissing = data.schema_missing !== undefined ? data.schema_missing : "TRUE";
+    
+    sheet.appendRow([targetUrl, companyName, email, llmsMissing, schemaMissing, "", ""]);
+    
+    return buildResponse("success", "Data securely injected into the Mainframe", 200);
+                         
+  } catch (error) {
+    return buildResponse("error", "Critical System Fault: Malformed Request", 400);
+  }
+}
+
+function buildResponse(status, message, code) {
+  var response = {"status": status, "message": message};
+  return ContentService.createTextOutput(JSON.stringify(response))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ==============================================================================
+// 🧠 NEURAL COGNITIVE ENGINE (Google Gemini API Integration)
+// ==============================================================================
+function generateGEOAudit() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = sheet.getDataRange().getValues();
+  
+  var apiKey = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
+  if (!apiKey) {
+    Logger.log("FATAL ERROR: Core Intelligence Key (GEMINI_API_KEY) Offline!");
+    return;
+  }
+  
+  var apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
+  
+  for (var i = 1; i < data.length; i++) {
+    var url = data[i][0];
+    var company = data[i][1];
+    var llmsMissing = data[i][3];
+    var schemaMissing = data[i][4];
+    var geminiOutput = data[i][5];
+    
+    if (url && geminiOutput === "") {
+      
+      // 🚀 EXTREME GOD-TIER PROMPT (Information Gap Strategy Activated)
+      var prompt = "Act as an elite, high-ticket Google AI Search Architect consulting for a Fortune 500 company. Write a 100-word highly urgent and highly technical email paragraph for the executive team at " + company + ". State that because their 'LLM Handshake Protocol' is absent and their 'Neural Knowledge Graph' is severely fragmented, their brand is being algorithmically suppressed and completely excluded from Google's AI Overviews and Google Gemini's retrieval models. End by proposing a high-level executive briefing to deploy a Gemini-compliant architecture. Keep the tone intimidating, authoritative, and extremely professional. CRITICAL INSTRUCTION: You must NEVER use the exact terms 'llms.txt', 'robots.txt', or 'JSON-LD'. Use only the proprietary terms provided.";
+      
+      var payload = {
+        "contents": [{"parts": [{"text": prompt}]}]
+      };
+      
+      var options = {
+        "method": "post",
+        "contentType": "application/json",
+        "payload": JSON.stringify(payload),
+        "muteHttpExceptions": true
+      };
+      
+      try {
+        var response = UrlFetchApp.fetch(apiUrl, options);
+        var json = JSON.parse(response.getContentText());
         
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-800 bg-gray-900/50 text-gray-300 text-xs md:text-sm font-medium backdrop-blur-sm shadow-xl hover:border-sky-500/50 transition-colors">
-            <svg class="w-4 h-4 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            Engineered for Google Gemini & AI Overviews
-        </div>
-        
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.1]">
-            Is Your Enterprise <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 neon-text">Invisible</span> to Google AI?
-        </h1>
-        
-        <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
-            Traditional SEO is obsolete. If your infrastructure lacks a Gemini-compliant <code class="text-sky-400 bg-gray-900/80 px-2 py-1 rounded border border-gray-700 font-mono text-sm shadow-inner">llms.txt</code> file and modern JSON-LD schema, Google's Generative AI is bypassing your brand entirely.
-        </p>
-        
-        <div class="glass-panel rounded-3xl p-8 md:p-12 mt-16 max-w-2xl mx-auto relative group">
-            
-            <div class="absolute -inset-0.5 bg-gradient-to-r from-sky-500 to-blue-600 rounded-3xl blur opacity-10 group-hover:opacity-30 transition duration-1000 group-hover:duration-200 z-[-1]"></div>
-            
-            <div class="text-left mb-10">
-                <h3 class="text-3xl font-space font-bold text-white mb-3">Initialize Infrastructure Audit</h3>
-                <p class="text-gray-400 text-sm">Our neural agents will diagnose your generative search compliance within 60 minutes and dispatch a technical brief to your executive inbox.</p>
-            </div>
-            
-            <form id="auditForm" class="space-y-6 text-left">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="relative">
-                        <label class="block text-xs font-semibold tracking-wider text-gray-500 uppercase mb-2">Target Domain</label>
-                        <input type="url" required placeholder="https://www.example.com" class="w-full bg-black/40 border border-gray-700/50 rounded-xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:bg-black/60 transition-all peer">
-                        <div class="focus-border h-0.5 bg-gradient-to-r from-sky-400 to-blue-500 absolute bottom-0 left-0 rounded-b-xl"></div>
-                    </div>
-                    <div class="relative">
-                        <label class="block text-xs font-semibold tracking-wider text-gray-500 uppercase mb-2">Entity Name</label>
-                        <input type="text" required placeholder="Acme Corporation" class="w-full bg-black/40 border border-gray-700/50 rounded-xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:bg-black/60 transition-all peer">
-                        <div class="focus-border h-0.5 bg-gradient-to-r from-sky-400 to-blue-500 absolute bottom-0 left-0 rounded-b-xl"></div>
-                    </div>
-                </div>
-                <div class="relative">
-                    <label class="block text-xs font-semibold tracking-wider text-gray-500 uppercase mb-2">Executive Access Email</label>
-                    <input type="email" required placeholder="director@example.com" class="w-full bg-black/40 border border-gray-700/50 rounded-xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:bg-black/60 transition-all peer">
-                    <div class="focus-border h-0.5 bg-gradient-to-r from-sky-400 to-blue-500 absolute bottom-0 left-0 rounded-b-xl"></div>
-                </div>
-                
-                <button type="submit" id="submitBtn" class="relative w-full overflow-hidden rounded-xl bg-gray-900 border border-gray-700 p-[1px] mt-4 group transition-all hover:shadow-[0_0_30px_rgba(56,189,248,0.4)]">
-                    <span class="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]"></span>
-                    <div class="relative flex h-full w-full items-center justify-center rounded-xl bg-gray-950 px-8 py-5 text-lg font-bold text-white backdrop-blur-3xl transition-all group-hover:bg-gray-900/80">
-                        <span id="btnText">Deploy Diagnostic Agent</span>
-                        <svg id="btnSpinner" class="hidden animate-spin ml-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                    </div>
-                </button>
-            </form>
-            
-            <div id="successMessage" class="hidden text-center py-8">
-                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-400/20 to-sky-500/20 border border-green-500/30 text-green-400 mb-6 shadow-[0_0_30px_rgba(74,222,128,0.2)]">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <h4 class="text-3xl font-space font-bold text-white mb-3">Diagnostic Protocol Initiated</h4>
-                <p class="text-gray-400 text-lg">Our AI systems have securely connected to your domain. A comprehensive vulnerability report will be delivered to your inbox shortly.</p>
-            </div>
-        </div>
-        
-        <div class="mt-16 pb-8 flex flex-col items-center gap-4 text-gray-600 text-sm">
-            <div class="flex gap-6">
-                <span>Secure SSL/TLS Connection</span>
-                <span>•</span>
-                <span>End-to-End Encryption</span>
-            </div>
-            <p>&copy; 2026 GEO Infrastructure Labs. All rights reserved.</p>
-        </div>
-    </div>
+        if (json.candidates && json.candidates[0].content.parts[0].text) {
+          var generatedText = json.candidates[0].content.parts[0].text;
+          sheet.getRange(i + 1, 6).setValue(generatedText);
+          Logger.log("Neural Audit successfully compiled for " + company);
+        } else {
+          Logger.log("Cognitive Failure: " + response.getContentText());
+        }
+      } catch (e) {
+        Logger.log("API Connection Terminated: " + e.toString());
+      }
+      Utilities.sleep(3000); // Throttling to prevent API ban
+    }
+  }
+}
 
-    <script>
-        // 🚨 YAHAN APNA APPS SCRIPT WEBHOOK URL DAALEIN (WITH INVERTED COMMAS! " " )
-        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbws5LpGEX88rU7Z-MCd6y99MqbePhVNfwY7-6BAj3lWkLJw-6GbKWXId1PyhSAYumwkAQ/exec";
-
-        document.getElementById('auditForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const btnText = document.getElementById('btnText');
-            const btnSpinner = document.getElementById('btnSpinner');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            // Loading State UI
-            btnText.innerText = "Transmitting Data...";
-            btnSpinner.classList.remove('hidden');
-            submitBtn.style.pointerEvents = "none";
-
-            const inputs = e.target.querySelectorAll('input');
-            const websiteUrl = inputs[0].value;
-            const companyName = inputs[1].value;
-            const email = inputs[2].value;
-
-            // Secure Payload
-            const payload = {
-                source: "frontend",
-                target_url: websiteUrl,
-                company_name: companyName,
-                email: email,
-                llms_missing: true, 
-                schema_missing: true
-            };
-
-            try {
-                // Background me fetch API se data bhejna
-                await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
-                });
-                
-                // Show Success Message
-                setTimeout(() => {
-                    document.getElementById('auditForm').style.display = 'none';
-                    document.getElementById('successMessage').classList.remove('hidden');
-                    document.getElementById('successMessage').classList.add('animate-pulse');
-                }, 800);
-
-            } catch (error) {
-                console.error("Transmission blocked.");
-                btnText.innerText = "Error - Try Again";
-                btnSpinner.classList.add('hidden');
-                submitBtn.style.pointerEvents = "auto";
-            }
+// ==============================================================================
+// 📨 AUTONOMOUS ACQUISITION ENGINE (Outbound Mail Merge)
+// ==============================================================================
+function sendAutomatedOutreach() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = sheet.getDataRange().getValues();
+  
+  for (var i = 1; i < data.length; i++) {
+    var company = data[i][1];
+    var emailAddress = data[i][2];
+    var geminiOutput = data[i][5]; 
+    var outreachStatus = data[i][6]; 
+    
+    if (geminiOutput !== "" && emailAddress !== "" && outreachStatus === "") {
+      
+      // 🚀 WORLD-CLASS SUBJECT LINE
+      var subject = "URGENT: Google AI Exclusion Protocol Detected - " + company;
+      
+      // 🚀 ENTERPRISE-GRADE EMAIL TEMPLATE
+      var emailBody = "<div style='font-family: Arial, sans-serif; color: #1a1a1a; line-height: 1.6;'>" +
+                      "<p>Hi Executive Team at <strong>" + company + "</strong>,</p>" +
+                      "<p>Our automated monitoring systems finalized a diagnostic scan of your digital infrastructure this morning against Google's latest Generative Engine Optimization (GEO) parameters.</p>" +
+                      "<p>We identified a critical structural failure. Your current web architecture is incompatible with Google's retrieval models, causing your brand to be completely omitted from Google Gemini and AI Overviews in favor of your direct competitors.</p>" +
+                      "<div style='background-color: #f8f9fa; border-left: 4px solid #4285f4; padding: 15px; margin: 20px 0; font-style: italic; color: #333;'>" +
+                      "<strong>Executive AI Visibility Audit:</strong><br><br>" + geminiOutput +
+                      "</div>" +
+                      "<p>If you intend to protect your market share from being swallowed by AI-compliant competitors, reply to this email to schedule a 10-minute technical briefing. We can deploy the necessary infrastructure upgrades immediately.</p>" +
+                      "<p>Best Regards,<br>" +
+                      "<strong>Google AI Optimization Infrastructure Team</strong><br>" +
+                      "<span style='color: #888; font-size: 12px;'>Automated Network Diagnostics & Compliance</span></p>" +
+                      "</div>";
+      
+      try {
+        GmailApp.sendEmail(emailAddress, subject, "", {
+          htmlBody: emailBody,
+          name: "GEO Infrastructure Labs" // Sets a highly professional sender name
         });
-    </script>
-</body>
-</html>
+        
+        var timestamp = new Date().toLocaleString();
+        sheet.getRange(i + 1, 7).setValue("Deployed on " + timestamp);
+        Logger.log("High-Ticket Payload successfully delivered to " + emailAddress);
+      } catch (e) {
+        Logger.log("Delivery Failed for " + emailAddress + ": " + e.toString());
+      }
+      Utilities.sleep(5000); // Throttling to protect sender reputation
+    }
+  }
+}
