@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEO Infrastructure | AI Search Optimization</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0a0a0a; color: #ffffff; font-family: 'Inter', sans-serif; }
+        .neon-text { text-shadow: 0 0 15px rgba(56, 189, 248, 0.6); }
+        .bg-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center justify-center p-4 bg-grid relative">
+    
+    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-[800px] h-[500px] bg-sky-900/20 rounded-full blur-[120px] -z-10"></div>
+
+    <div class="max-w-4xl w-full text-center space-y-8 z-10">
+        <div class="inline-block px-4 py-1.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs md:text-sm font-bold tracking-widest uppercase mb-2 shadow-[0_0_10px_rgba(56,189,248,0.2)]">
+            Enterprise Generative Engine Optimization
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+            Is Your Brand <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-600 neon-text">Invisible</span> to ChatGPT?
+        </h1>
+        
+        <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            Traditional SEO is obsolete. If your infrastructure lacks an <code class="text-sky-400 bg-gray-900 px-2 py-1 rounded border border-gray-800">llms.txt</code> file and entity schema, AI models like ChatGPT, Claude, and Perplexity are entirely bypassing your business and recommending competitors.
+        </p>
+        
+        <div class="bg-gray-900/80 backdrop-blur-md border border-gray-800 rounded-3xl p-8 md:p-10 mt-12 shadow-2xl max-w-2xl mx-auto relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400 to-blue-600"></div>
+            
+            <h3 class="text-2xl font-bold mb-2">Request Your Free AI Visibility Audit</h3>
+            <p class="text-gray-500 mb-8">Our automated systems will diagnose your generative search gaps within 60 minutes.</p>
+            
+            <form id="auditForm" class="space-y-5 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1.5">Company Website</label>
+                        <input type="url" required placeholder="https://www.yourcompany.com" class="w-full bg-black/50 border border-gray-700 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1.5">Company Name</label>
+                        <input type="text" required placeholder="Acme Corp" class="w-full bg-black/50 border border-gray-700 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1.5">Executive Email</label>
+                    <input type="email" required placeholder="founder@yourcompany.com" class="w-full bg-black/50 border border-gray-700 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-lg py-4 px-6 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(56,189,248,0.3)] mt-4">
+                    Run Automated Diagnostics
+                </button>
+            </form>
+            
+            <div id="successMessage" class="hidden mt-6 text-center">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-500/20 text-green-400 mb-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h4 class="text-xl font-bold text-white mb-1">Diagnostic Request Received</h4>
+                <p class="text-gray-400">Our AI agents are analyzing your infrastructure. Check your inbox shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('auditForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('auditForm').style.display = 'none';
+            document.getElementById('successMessage').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
